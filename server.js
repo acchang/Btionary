@@ -20,6 +20,7 @@ MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
         entriesCollection.insertOne(req.body)
           .then(result => {
             console.log(result)
+            res.redirect('/')
           })
           .catch(error => console.error(error))
       })
@@ -28,13 +29,16 @@ MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
         console.log('listening on 3000')
     })
 
+    app.set('view engine', 'ejs')
+
     app.get('/', (req, res) => {
-        res.sendFile(__dirname + '/index.html')
+    db.collection('entries').find().toArray()
+        .then(results => {
+        res.render('index.ejs', { entries: results })
+        })
+        .catch(/* ... */)
     })
 
-    app.post('/quotes', (req, res) => {
-        console.log(req.body)
-    })
 
 })
 .catch(error => console.error(error))

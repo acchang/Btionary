@@ -10,6 +10,20 @@
   Someone eyeee know has a unique way of speakiling! 
 
   Find the latest BEE-ning of a WORDS!
+  
+
+ <h2> Definition</h2>
+
+ <ul class="quotes">
+   <% for(var i = 0; i < entries.length; i++) {%>
+     <li class="definition">
+       <span><%= entries[i].word %></span>:
+       <span><%= entries[i].definition %></span>
+        <span><%= entries[i].use %></span>
+     </li>
+   <% } %>
+ </ul>
+
 
 
   Or add your own:
