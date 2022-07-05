@@ -10,7 +10,7 @@ const MongoClient = require('mongodb').MongoClient
 
 MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
         .then(client => {
-        console.log('Connected to Database')
+        console.log('I AM Connected to Database')
         const db = client.db('Btionary-entries')
         const entriesCollection = db.collection('entries')
 
@@ -27,9 +27,12 @@ MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
           .catch(error => console.error(error))
       })
 
-    app.listen(3000, function() {
-        console.log('listening on 3000')
-    })
+
+    let port = process.env.PORT;
+    if (port == null || port == "") {
+    port = 8000;
+    }
+    app.listen(port);
 
     app.set('view engine', 'ejs')
 
