@@ -1,0 +1,22 @@
+.emphasis {
+    font-style: italic;
+  }
+
+.intro {
+    text-align: center;
+    border: 3px solid green;
+}
+
+.definition {
+    text-align: center;
+    border: 3px solid blue;
+}
+
+.entryform {
+    text-align: center;
+    border: 3px solid gray;
+}
+
+#txtbox {
+    width: 200px; height: 50px
+}
