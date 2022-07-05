@@ -16,6 +16,8 @@ MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
 
     app.use(bodyParser.urlencoded({ extended: true }))
 
+    app.use(express.static(__dirname + '/public'));
+
     app.post('/entries', (req, res) => {
         entriesCollection.insertOne(req.body)
           .then(result => {
