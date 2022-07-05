@@ -10,7 +10,7 @@ const MongoClient = require('mongodb').MongoClient
 
 MongoClient.connect(process.env.DATABASE_URL, { useUnifiedTopology: true})
         .then(client => {
-        console.log('I AM Connected to Database')
+        console.log('Connected to Database')
         const db = client.db('Btionary-entries')
         const entriesCollection = db.collection('entries')
 
