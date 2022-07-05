@@ -9,6 +9,13 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.title {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .definition {
     text-align: center;
     background-color: pink;
@@ -36,8 +43,19 @@
 }
 
 .complete {
-    /* display:none */
+    display: none;
 }
+
+.secret {
+    text-align: right;
+}
+
+#button {
+    color: white;
+    background-color: white;
+    border: 2px solid #E8E8E8;
+}
+
 
 input, textarea {font-family: Arial; color: #333;}
 
