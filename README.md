@@ -1,48 +1,44 @@
 The Btionary
 
-This project is in honor of my weird ex-girlfriend who speaks in a peculiar mix of languages that aims to maximize her cuteness. It's a full stack web app with Node.js, Express, MongoDB, and some EJS.
+This project is in honor of my weird ex-girlfriend who speaks in a peculiar mix of languages that aims to maximize her cuteness. She almost speaks her own language!
+
+So I put all her vocabulary into a full stack web app using Node.js, Express, MongoDB, and some EJS.
 
 Live: https://btionary.herokuapp.com/
 
-guide intro screen guide demo screen
-
 How it's made
-Tech used: Front end: HTML, CSS, JavaScript; back end: Node.js and Express framework, MongoDB as database. Some EJS for limited server-side rendering. Began with just the API built using Node.js and Express during development, with automatic deployment to Heroku from GitHub. I used Postman to test the API at different points.
 
-Front end was rebuilt separately on top of an older version of this project. The current version uses MongoDB and allows submissions from users with the passcode (on request) through the app. Partial server-side rendering is enabled with EJS for "Tip of the Day" (top of web app). The latter part of the app (phrase recommendation, dictionary) is set up to reduce calls to the server.
+For the Front end, I used HTML, CSS, JavaScript.
+For back end, I used Node.js and Express framework and MongoDB as the database. There is some EJS for server-side rendering. I also used Postman to test the API.
 
 Optimizations
-Create a successful submission indicator (for new document/resource contribution).
-Refactor so that dotenv can safely be listed solely as a devdependency without confusing Heroku into throwing another error. Initial code in server.js aimed to do this but error continued to come up until dotenv was changed into a general dependency.
-(Firefox browser) "NetworkError when attempting to fetch resource." This doesn't seem to stop things from working in localhost but may want to debug.
 
-Lessons learned (many)
-Install the CORS module to ensure API is accessible
-Heroku uses its own port - update any hardcoded port to include environment variable conditionally. And check for simple mistakes when referencing process.env object.
-Rewriting front-end code for server-side rendering using a template engine - not fully transitioned there but also questioning whether some client-side rendering might not perform better.
-Modularizing the css to components helped immensely when expanding input options /refactoring to use MongoDB
-VS Code editor seems to auto-generate necessary lines of code when you add certain parameters? (such as for dotenv.config())
-Gatekeeping user contributions appear to need setup on server side.
-Excluding certain fields from submission into the object, since different "resource types" for the API have different relevant keys.
-I ended up removing the name attribute from the irrelevant fields after trying to handle with other properties (CSS - display:none). It seems to be better to put the conditional in client-side code (make the req body smaller for send, versus sending to server to decide which parts to insert).
-Writing in a line of code to also clear previous fields of any values if the user selected a different resource type for their new submission after typing into a field.
-Interesting to note that clicking through links from the ejs file pre-compiling fails, but express knows to serve them from public file when you start the app.
-Client-side JS is a bit spaghetti-like and could use a more OOP-aligned rewrite to reduce scope pollution.
+One thing I could do better is tweak the entry point so that it doesn't allow duplicates — that is, if the word submitted was already in the database, then something would warn the user of a potential duplicate.
 
-Troubleshot
-"SyntaxError: JSON.parse: unexpected character at line 1 column 1" - this relates to not returning a valid json object to be parsed from server side to client
-Procfile failures: Although it appears procfile may not be necessary (soon?), one possible error stems from the procfile format. By default (created from CLI) it is utf 16 but needs to be utf 8. Solution: Fix in Notepad or similar app, and remove previous file extension.
-The dreaded H10 error resolved with the following remedies:
-"MongoDB connection string not found"-type error: Set an additional variable on Heroku and add conditional in server-side code so that dotenv doesn't look for an .env file that isn't there on deployment, and uses the env variables on Heroku.
-Deploying with heroku CLI worked, while something went wrong with autodeploy from connected GitHub repo. I will need to check what happened with the autodeployment setup.
-Considerations
-pros/cons of automatic deployment to Heroku (see above)
-main: index.js v server.js - does the naming convention have any current significance?
-general note deploying to Heroku (free tier): white listing all IP addresses obviously isn't the best practice but it's what is required currently. Security is based on MongoDB Atlas authentication measures.
+If the submission was successful, that could lead to another page. 
+
+Lessons learned
+
+The coolest thing I learned was using heroku's config vars through the web interface, setting a true/false condition by creating a key value pair there. 
+
+https://discord.com/channels/735923219315425401/984252010356420659/988190779103146054
+
+the actual connection string with the actual username and pw is entirely inside the .env file and also an env variable set in Heroku.
+
+Here's how I explained it at the time:
+
+One needs to tell heroku to look for the username/password in config vars or else it keeps searching for env and the solution is to use config vars.
+
+if you have a key value pair in config vars like heroku: yes, then if the app is operating locally, then that would be false, and you would use dotenv, otherwise heroku knows to use the username and password for the mongoenvironment in config vars
+and so the username and password is wrapped up in the connectionstring, and that whole connection string is the value to the key connectionString in config vars.
 
 
+Troubleshooting
+I had a little trouble distinguishing between requiring 'CORS' and requiring 'body-parser'.
 
+The explanation I got was:
 
-One thing I could do better is tweak the entry point so that it doesn't allow duplicates.
+CORS is to handle cross-origin resource sharing: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS If you've ever tried to use someone else's API and got blocked - you might have seen the error come up in the browser console. So to avoid this happening with our own API, we use that line of code. I guess it is indeed middleware. https://expressjs.com/en/resources/middleware/cors.html
 
-And then I need to follow a template on what to do.
+body-parser is middleware to handle URL-encoded requests and JSON - so it does different things. But we don't need it anymore with current version of express. 
+
