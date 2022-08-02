@@ -19,25 +19,11 @@ If the submission was successful, that could lead to another page.
 
 ## Lessons learned
 
-The coolest thing I learned was using heroku's config vars through the web interface, setting a true/false condition by creating a key value pair there. 
-
-https://discord.com/channels/735923219315425401/984252010356420659/988190779103146054
-
-the actual connection string with the actual username and pw is entirely inside the .env file and also an env variable set in Heroku.
-
-Here's how I explained it at the time:
-
-One needs to tell heroku to look for the username/password in config vars or else it keeps searching for env and the solution is to use config vars.
-
-if you have a key value pair in config vars like heroku: yes, then if the app is operating locally, then that would be false, and you would use dotenv, otherwise heroku knows to use the username and password for the mongoenvironment in config vars
-and so the username and password is wrapped up in the connectionstring, and that whole connection string is the value to the key connectionString in config vars.
+This was just a refinement of my "Orchard Tracker" project, so not a lot of lessons. Just working on technique. I built out the front end a little more.
 
 ## Troubleshooting
-I had a little trouble distinguishing between requiring 'CORS' and requiring 'body-parser'.
 
-The explanation I got was:
+I have the entire dictionary hidden somewhere on the page so I could check double-check my new entries without going to Heroku.
 
-CORS is to handle cross-origin resource sharing: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS If you've ever tried to use someone else's API and got blocked - you might have seen the error come up in the browser console. So to avoid this happening with our own API, we use that line of code. I guess it is indeed middleware. https://expressjs.com/en/resources/middleware/cors.html
-
-body-parser is middleware to handle URL-encoded requests and JSON - so it does different things. But we don't need it anymore with current version of express. 
+It takes two clicks to open it when it was originally one, but two is just as good as it prevents an accidental opening.
 
